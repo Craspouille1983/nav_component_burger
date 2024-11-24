@@ -38,39 +38,36 @@ export default {
 
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .burger-panel {
-    z-index: 1;
-    width: 100vw;
+    /* Variable */
+    $fs: 2.5rem;
+    /* End variable */
+    width: 45vw;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    padding-top: 8.5ex;
-    background: #fff;
-    transform-origin: left;
-    transform: translateX(-100%);
-    transition: ease-in-out 1s;
-    &::after {
-        content: "";
-        position: absolute;
-        width: 50%;
-        height: 100%;
-        background: deeppink;
-        top: 0;
-        z-index: -1;
+    margin-top: 8.5ex;
+    padding: 1rem;
+    background: rgba(139, 0, 0, .95);
+    transform-origin: right;
+    transform: translateX(-150%);
+    transition: ease-in-out .5s;
+    
+    ul {
+        text-align: left;
+        li {
+            list-style: none;
+            a {
+                font-family: 'Pangolin';
+                font-size: $fs;
+                line-height: calc($fs * 1.55);
+                text-decoration: none;
+                color: #fff;
+            }
+        }
     }
-    &::before {
-        content: "";
-        position: absolute;
-        width: 50%;
-        height: 50%;
-        background: darkgreen;
-        bottom: 0;
-        left: 0;
-        z-index: -1;
-    }
-
     &.open {
         transform: translateX(0);
     }

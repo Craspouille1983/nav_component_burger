@@ -1,14 +1,17 @@
 <template>
   <navComponent :items="itemsNav" />
+  <headerImg bgSrc="crasp_2_lite.png" />
 </template>
 
 <script>
 import navComponent from './components/nav_component.vue';
+import headerImg from './components/header.vue';
 
 export default {
   name: 'App',
   components: {
-    navComponent
+    navComponent,
+    headerImg,
   },
   data() {
     return {
@@ -32,6 +35,8 @@ export default {
 
 body {
   background-color: #111;
+  position: relative;
+  overflow-x: hidden;
 }
 
 #app {

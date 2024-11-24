@@ -1,12 +1,13 @@
 <template>
+    <div :class="{ open: burger }" class="volets"></div>
     <nav>
         <figure><img :src="require(`@/assets/${src}`)" :alt="altText"></figure>
         <ul>
             <li v-for="item in items" :key="`item-${item.id}`"><a :href="item.menuUrl">{{ item.menu }}</a></li>
         </ul>
         <div :class="{ burger: true, open: burger }" @click="openBurger"><span></span><span></span><span></span></div>
+        <!-- Le composant enfant BurgerMenu -->
     </nav>
-    <!-- Le composant enfant BurgerMenu -->
     <burgerPanelMenu :items="items" :isOpen="burger" />
 </template>
 <script>
@@ -49,36 +50,57 @@ export default {
 }
 </script>
 <style scoped>
-nav {
-    .burger {
-        max-width: 3em;
-        display: inline-flex;
-        flex-direction: column;
-        align-items: flex-end;
-        row-gap: .5em;
+.volets {
+    width: 100vw;
+    height: 100vh;
+    /* margin-top: 8.5ex; */
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    z-index: 1;
 
-        &.open {
-            span {
-                background-color: deeppink;
-            }
+    &.open {
+
+        &::after {
+            transform-origin: top right;
+            transform: rotateZ(0deg);
         }
 
-        span {
-            display: inline-block;
-            height: .6ex;
-            width: 3em;
-            background-color: #fff;
-
-            &:nth-of-type(1) {
-                width: 2em;
-            }
-
-            &:nth-of-type(3) {
-                width: 1em;
-            }
+        &::before {
+            transform: scaleY(1);
         }
     }
 
+    &::after {
+        z-index: 0;
+        content: "";
+        position: absolute;
+        width: 50vw;
+        right: 0;
+        height: 100vh;
+        background: rgba(1, 1, 1, .95);
+        top: 0;
+        transition: transform .75s ease-in-out allow-discrete;
+        transform-origin: top right;
+        transform: rotateZ(180deg);
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 15vw;
+        height: 100vh;
+        background: rgb(139, 0, 0, .5);
+        top: -8.5ex;
+        left: calc(50% - calc(15vw/2));
+        z-index: 1;
+        transition: transform .75s;
+        transform-origin: top;
+        transform: scaleY(0);
+    }
+}
+
+nav {
     background: rgba(3, 3, 3, .95);
     position: fixed;
     display: flex;
@@ -89,6 +111,62 @@ nav {
     height: 8.5ex;
     padding: .75rem 4rem;
     z-index: 10;
+
+    .burger {
+        width: 100%;
+        max-width: 3em;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-end;
+        row-gap: .5em;
+        cursor: pointer;
+        position: relative;
+        
+        &.open {
+            span {
+                &:nth-of-type(1) {
+                    width: 2em;
+                    transform: rotateZ(-45deg) translateX(-30%);
+                }
+
+                &:nth-of-type(2) {
+                    position: absolute;
+                    transform: translateX(100vw);
+                }
+
+                &:nth-of-type(3) {
+                    width: 2em;
+                    transform: rotateZ(45deg) translateX(-30%);
+                }
+            }
+        }
+
+        span {
+            position: relative;
+            display: inline-block;
+            height: .6ex;
+            width: 3em;
+            left: 0;
+            background-color: #fff;
+            transform-origin: center;
+            transition: .5s ease-in-out;
+
+            &:nth-of-type(1) {
+                width: 2em;
+                transform: rotateZ(0) translate(0);
+            }
+
+            &:nth-of-type(2) {
+                transform-origin: left;
+                transform: translateX(0);
+            }
+
+            &:nth-of-type(3) {
+                width: 1em;
+                transform: rotateZ(0) translate(0);
+            }
+        }
+    }
 
     figure {
         max-width: 3em;
