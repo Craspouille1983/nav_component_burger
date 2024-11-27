@@ -9,8 +9,8 @@
             <span></span><span></span><span></span></div>
         <!-- Le composant enfant BurgerMenu -->
     </nav>
-    <burgerPanelMenu :items="items" :isOpen="burger" />
     <div :class="{ open: burger }" class="volets"></div>
+    <burgerPanelMenu :items="items" :isOpen="burger" />
 </template>
 <script>
 import burgerPanelMenu from './burgerPanelMenu.vue';
@@ -96,10 +96,10 @@ export default {
         z-index: 0;
         content: "";
         position: absolute;
-        width: 43vw;
+        width: 22.5vw;
         right: 0;
         height: 100vh;
-        background: rgba(1, 1, 1, .95);
+        background: rgba(255, 53, 75, .9);
         top: 0;
         transition: transform .75s ease-in-out allow-discrete;
         transform-origin: top right;
@@ -111,9 +111,9 @@ export default {
         position: absolute;
         width: 15vw;
         height: 100vh;
-        background: rgb(139, 0, 0, .5);
+        background: rgb(255, 165, 0, .5);
         top: -8.5ex;
-        left: calc(50% - calc(15vw/2));
+        left: calc(70% - calc(15vw/2));
         z-index: 1;
         transition: transform .75s;
         transform-origin: top;

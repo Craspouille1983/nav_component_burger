@@ -42,7 +42,7 @@ export default {
 .burger-panel {
     /* Variable */
     $fs: 2.5rem;
-    $padd: 8rem;
+    $padd: 6rem;
     /* End variable */
     height: 100vh;
     width: 100vw;
@@ -54,31 +54,17 @@ export default {
     transform: translateX(-150%);
     transition: ease-in-out .5s;
     padding: $padd;
-    &::before {
-        content: "";
-        background: rgba(139, 0, 0, .95);
-        display: block;
-        width: 45%;
-        height: 100%;
-        position: relative;
-        left: -$padd;
-        top: -$padd;
-    }
-    // display: flex;
-    // justify-content: flex-end;
-    // align-items: center;
-
+    background-image: linear-gradient(rgba(255, 53, 75, .95), rgba(255, 53, 75, .95));
+    background-size: 0;
+    background-repeat: no-repeat;
+    z-index: 1;
     ul {
         text-align: left;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
         margin: auto;
-        // padding-left: 8rem;
+
         li {
             list-style: none;
+
             a {
                 font-family: 'Pangolin';
                 font-size: $fs;
@@ -88,8 +74,10 @@ export default {
             }
         }
     }
+
     &.open {
         transform: translateX(0);
+        background-size: 65%;
     }
 }
 </style>
