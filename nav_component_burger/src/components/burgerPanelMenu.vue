@@ -42,21 +42,41 @@ export default {
 .burger-panel {
     /* Variable */
     $fs: 2.5rem;
+    $padd: 8rem;
     /* End variable */
-    width: 45vw;
     height: 100vh;
+    width: 100vw;
     position: fixed;
     top: 0;
     left: 0;
     margin-top: 8.5ex;
-    padding: 1rem;
-    background: rgba(139, 0, 0, .95);
     transform-origin: right;
     transform: translateX(-150%);
     transition: ease-in-out .5s;
-    
+    padding: $padd;
+    &::before {
+        content: "";
+        background: rgba(139, 0, 0, .95);
+        display: block;
+        width: 45%;
+        height: 100%;
+        position: relative;
+        left: -$padd;
+        top: -$padd;
+    }
+    // display: flex;
+    // justify-content: flex-end;
+    // align-items: center;
+
     ul {
         text-align: left;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        // padding-left: 8rem;
         li {
             list-style: none;
             a {

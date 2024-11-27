@@ -1,17 +1,20 @@
 <template>
-    <div :class="{ open: burger }" class="volets"></div>
     <nav>
         <figure><img :src="require(`@/assets/${src}`)" :alt="altText"></figure>
-        <ul>
+        <ul v-show="isWideScreen">
             <li v-for="item in items" :key="`item-${item.id}`"><a :href="item.menuUrl">{{ item.menu }}</a></li>
         </ul>
-        <div :class="{ burger: true, open: burger }" @click="openBurger"><span></span><span></span><span></span></div>
+        <div :class="{ burger: true, open: burger }"
+            v-show="!isWideScreen" @click="openBurger">
+            <span></span><span></span><span></span></div>
         <!-- Le composant enfant BurgerMenu -->
     </nav>
     <burgerPanelMenu :items="items" :isOpen="burger" />
+    <div :class="{ open: burger }" class="volets"></div>
 </template>
 <script>
 import burgerPanelMenu from './burgerPanelMenu.vue';
+import { ref, onMounted, onUnmounted } from "vue";
 
 export default {
     name: "navComponent",
@@ -21,6 +24,7 @@ export default {
     data() {
         return {
             burger: false,
+            show: false,
         }
     },
     props: {
@@ -46,7 +50,24 @@ export default {
                 console.log('Le menu a été mis à jour, burger:', this.burger);
             });
         }
-    }
+    },
+    setup() {
+        const isWideScreen = ref(window.innerWidth > 768); // Initialise selon la taille actuelle de l'écran
+
+        const updateScreenSize = () => {
+            isWideScreen.value = window.innerWidth > 768;
+        };
+
+        onMounted(() => {
+            window.addEventListener("resize", updateScreenSize); // Écoute les changements de taille
+        });
+
+        onUnmounted(() => {
+            window.removeEventListener("resize", updateScreenSize); // Nettoie l'écouteur
+        });
+
+        return { isWideScreen };
+    },
 }
 </script>
 <style scoped>
@@ -63,7 +84,7 @@ export default {
 
         &::after {
             transform-origin: top right;
-            transform: rotateZ(0deg);
+            transform: translateX(0);
         }
 
         &::before {
@@ -75,14 +96,14 @@ export default {
         z-index: 0;
         content: "";
         position: absolute;
-        width: 50vw;
+        width: 43vw;
         right: 0;
         height: 100vh;
         background: rgba(1, 1, 1, .95);
         top: 0;
         transition: transform .75s ease-in-out allow-discrete;
         transform-origin: top right;
-        transform: rotateZ(180deg);
+        transform: translateX(100vw);
     }
 
     &::before {
@@ -121,7 +142,7 @@ nav {
         row-gap: .5em;
         cursor: pointer;
         position: relative;
-        
+
         &.open {
             span {
                 &:nth-of-type(1) {
