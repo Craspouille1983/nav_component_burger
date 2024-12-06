@@ -9,7 +9,6 @@
             <span></span><span></span><span></span></div>
         <!-- Le composant enfant BurgerMenu -->
     </nav>
-    <div :class="{ open: burger }" class="volets"></div>
     <burgerPanelMenu :items="items" :isOpen="burger" />
 </template>
 <script>
@@ -71,55 +70,6 @@ export default {
 }
 </script>
 <style scoped>
-.volets {
-    width: 100vw;
-    height: 100vh;
-    /* margin-top: 8.5ex; */
-    overflow: hidden;
-    position: fixed;
-    left: 0;
-    z-index: 1;
-
-    &.open {
-
-        &::after {
-            transform-origin: top right;
-            transform: translateX(0);
-        }
-
-        &::before {
-            transform: scaleY(1);
-        }
-    }
-
-    &::after {
-        z-index: 0;
-        content: "";
-        position: absolute;
-        width: 22.5vw;
-        right: 0;
-        height: 100vh;
-        background: rgba(255, 53, 75, .9);
-        top: 0;
-        transition: transform .75s ease-in-out allow-discrete;
-        transform-origin: top right;
-        transform: translateX(100vw);
-    }
-
-    &::before {
-        content: "";
-        position: absolute;
-        width: 15vw;
-        height: 100vh;
-        background: rgb(255, 165, 0, .5);
-        top: -8.5ex;
-        left: calc(70% - calc(15vw/2));
-        z-index: 1;
-        transition: transform .75s;
-        transform-origin: top;
-        transform: scaleY(0);
-    }
-}
 
 nav {
     background: rgba(3, 3, 3, .95);

@@ -77,7 +77,7 @@ export default {
 
     &.open {
         transform: translateX(0);
-        background-size: 65%;
+        background-size: 95%;
     }
 }
 </style>
